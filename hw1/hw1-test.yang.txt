@@ -1,0 +1,18 @@
+Test cases:
+
+1. j
+2. jY
+3. jY23
+4. jY23$
+5. jy23$%
+6. 1234
+7. jordan
+8. reng
+9. supernov
+10. zzzzzzzz
+11. &amp
+12. &amp;
+
+Strategy:
+ For the first part, I start with a combination of a single character, to see if the error message comes out as expected. Then I gradually add the missing element indicated in the message, one at a time.
+ For the second part, I start with 1234, to make sure the iteration number comes out right. Then I test the best case: jordan, and then the second best: reng, and the third best: supernov, just to see the iteration numbers are right. Finally I test the edge cases: &amp and zzzzzzzz
