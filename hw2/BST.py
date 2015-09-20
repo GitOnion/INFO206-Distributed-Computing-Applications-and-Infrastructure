@@ -98,13 +98,12 @@ def _find_result(root, word, result):
 
 def _size(root, count):
     if root == None:
-        print("None")
         return count
-    print(root.word)
-    _size(root.left, count)
-    count += 1
-    print(count)
-    _size(root.right, count)
+    else:
+        count += 1
+    count = _size(root.left, count)
+    count = _size(root.right, count)
+    return count
 
 # def _height(root):
 
