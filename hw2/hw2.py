@@ -28,16 +28,30 @@ def word_process(txtfile):
     for word in text_split:
         char_holder = ""
         for char in word:
-            if ord(char) == 32 or (ord(char) > 96 and ord(char) < 122):
+            if ord(char) == 32 or (ord(char) > 96 and ord(char) < 123):
                 char_holder += char
         text_processed.append(char_holder)
-    print(text_processed)
     return text_processed
 
 # main function
 def main():
     t = load_file()
-    word_process(t)
+    L = word_process(t)
+    T = BSTree()
+    for word in L:
+        T.add(word)
+        T.sort()
+    Q = ""
+    while Q != "terminate":
+        Q = raw_input("Query? ")
+        Q = Q.lower()
+        if Q == "terminate":
+            break
+        if Q == "stats":
+            T.size()
+            T.height()
+        else:
+            T.find(Q)
 
 
 if __name__ == "__main__":

@@ -10,11 +10,12 @@
 # Body
 class Node:
     #Constructor Node() creates node
-    def __init__(self, word):
+    def __init__(self, word, height):
         self.word = word
         self.left = None
         self.right = None
         self.count = 1
+        self.height = height
 
 class BSTree:
     #Constructor BSTree() creates empty tree
@@ -41,9 +42,10 @@ class BSTree:
 
     def add(self, word):
         if not self.root:
-            self.root = Node(word)
+            self.root = Node(word, 0)
             return
-        _add(self.root, word)
+        height = 0
+        _add(self.root, word, height)
 
     def find(self, word):
         return _find(self.root, word)
@@ -54,26 +56,30 @@ class BSTree:
     def size(self):
         count = 0
         count = _size(self.root, count)
-        print(count)
+        print("The number of entries in the tree is: " + str(count))
 
     def height(self):
-        return _height(self.root)
+        holder = []
+        _height(self.root, holder)
+        print("The height of the tree is: " + str(max(holder)))
 
 
-def _add(root, word):
+def _add(root, word, height):
     if root.word == word:
         root.count +=1
         return
     if root.word > word:
+        height += 1
         if root.left == None:
-            root.left = Node(word)
+            root.left = Node(word, height)
         else:
-            _add(root.left, word)
+            _add(root.left, word, height)
     else:
+        height += 1
         if root.right == None:
-            root.right = Node(word)
+            root.right = Node(word, height)
         else:
-            _add(root.right, word)
+            _add(root.right, word, height)
 
 def _find(root, word):
     if root.word == word:
@@ -105,13 +111,21 @@ def _size(root, count):
     count = _size(root.right, count)
     return count
 
-# def _height(root):
-
-
+def _height(root, holder):
+    if root == None:
+        return
+    else:
+        holder.append(root.height)
+        _height(root.left, holder)
+        _height(root.right, holder)
+    return holder
 
 def _inOrderPrint(root):
     if root == None:
         return
     _inOrderPrint(root.left)
-    print(str(root.word) + " " + str(root.count))
+    # test = open("log.txt", "a")
+    # print >> test, (str(root.word) + " " + str(root.count))
+    # test.close()
+    print(str(root.word) + ": count = " + str(root.count) + ", height = " + str(root.height))
     _inOrderPrint(root.right)
