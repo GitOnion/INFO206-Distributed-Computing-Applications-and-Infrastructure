@@ -1,0 +1,58 @@
+Discussion:
+1. The boundary cases are:
+    a. the catalog.txt file is not written in the expected way, for example: the book titles are not seperated by a 'new line' character.
+    b. the file at the remote server can't be opened, due to either:
+        i. the url is not right, or the page is removed
+        ii. the file format is not a opennable file for my calling function in urllib, for example: a .mpg4 movie.
+    c. the books is written in language other than the ASCII table has, for example: Chinese
+
+2. & 3.
+    I had put in a try Exception loop to catch the 1.b. possibilities, so if the url is not right or the file can't be open, my program will
+    print "oops, the url of <bookname> seems broken."
+    But fot 1.a., the possibilities are limitless, so I didn't deploy any exception catching mechanisms in my program. If the catalog.txt
+    is not written in the expected way, the parameter being passed into my program as URL will simply not work, and my program will print
+    "oops, the url of <bookname> seems broken." where the <bookname> is whatever being passed in as the name of the book, which in this case
+    would be messed up, and so I could track the erroer. However, for the 1.c. exception, the program will break when it tries to parse
+    the content of the file.
+
+
+Test cases below:
+1. Change the import source's filename from hw3.yang.py to hw3.py
+2. Comment out or uncomment in different sections before use.
+
+
+#Imports
+import hw3
+
+#Test phase 1
+#Test phase 1 using real list
+# raw_catalog = hw3.open_file("hw3catalog.txt")
+# Books = hw3.categorize_books(raw_catalog)
+# print(Books[0])
+# print(Books[1])
+
+#Iteration 1-2
+# output = hw3.ReadCatalogue("hw3catalog.txt")
+# print(output[0])
+# print(output[1])
+
+#Test phase 2 & 3
+Catalogue = hw3.ReadCatalogue("hw3localcatalog.txt")
+Books = Catalogue[0]
+Titles = Catalogue[1]
+Words = {}
+hw3.ReadBook(Titles, Books, Words)
+hw3.Search(Words, Books, Titles)
+
+# ----
+# Write the text into a log file to see the result"
+F = open("log.txt", 'w')
+for i in Words:
+    F.write(i)
+    buffer = "".join(str(Words[i]))
+    F.write(buffer)
+    F.write('\n')
+F.close()
+# ----
+# Also tested:
+# Broken URLs

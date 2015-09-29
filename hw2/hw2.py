@@ -40,7 +40,6 @@ def main():
     T = BSTree()
     for word in L:
         T.add(word)
-        T.sort()
     Q = ""
     while Q != "terminate":
         Q = raw_input("Query? ")
